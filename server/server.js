@@ -72,10 +72,10 @@ const songList = [
 ];
 
 app.get('/artist', (req, res) => {
-    let queryText = 'SELECT * FROM artists WHERE year_born ORDER BY DESC;'
+    let queryText = 'SELECT * FROM artists;';
     pool.query(queryText)
-        .then(dbResult => {
-            res.send(dbResult.rows);
+        .then(dbResults => {
+            res.send(dbResults.rows);
         })
         .catch((error) => {
             console.log(`Error! It broke trying to query ${queryText}`, error);
