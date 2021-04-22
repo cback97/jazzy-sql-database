@@ -109,9 +109,9 @@ function renderSongs(listOfSongs) {
     for (let song of listOfSongs) {
         $('#songTableBody').append(`
                 <tr>
-                    <td>${song.title}</td>
-                    <td>${song.length}</td>
-                    <td>${song.released}</td>
+                    <td>${song.track}</td>
+                    <td>${song.time}</td>
+                    <td>${song.published}</td>
                 </tr>`
             );
     }
