@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const pg = require('pg')
 
 const app = express();
 const PORT = 5000;
@@ -9,6 +10,28 @@ app.use(express.static('server/public'));
 
 app.listen(PORT, () => {
     console.log('listening on port', PORT)
+});
+
+
+// Setting up 'pool' and connecting with database
+
+const Pool = pg.Pool;
+const pool = new Pool({
+    database: 'jazzy_sql',
+    host: 'localhost',
+    port: '5432',
+    max: '10',
+    idleTimeoutMillis: 30000
+});
+
+// handle connection events
+pool.on('connect', () => {
+    console.log('Postgresql, yeah baby!');
+});
+
+// handle errors from the DB
+pool.on('error', error => {
+    console.log('Error with postgres pool!', error);
 });
 
 // TODO - Replace static content with a database tables
@@ -49,8 +72,17 @@ const songList = [
 ];
 
 app.get('/artist', (req, res) => {
-    console.log(`In /songs GET`);
-    res.send(artistList);
+    let queryText = 'SELECT * FROM artists WHERE year_born ORDER BY DESC;'
+    pool.query(queryText)
+        .then(dbResult => {
+            res.send(dbResult.rows);
+        })
+        .catch((error) => {
+            console.log(`Error! It broke trying to query ${queryText}`, error);
+            res.sendStatus(500);
+        });
+    // console.log(`In /songs GET`);
+    // res.send(artistList);
 });
 
 app.post('/artist', (req, res) => {
