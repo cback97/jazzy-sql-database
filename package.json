@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node server/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon server/server.js"
   },
   "keywords": [],
   "author": "",
@@ -20,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/cback97/jazzy-sql-database/issues"
   },
-  "homepage": "https://github.com/cback97/jazzy-sql-database#readme"
+  "homepage": "https://github.com/cback97/jazzy-sql-database#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
 }
