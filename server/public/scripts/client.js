@@ -15,6 +15,8 @@ function onReady() {
     getSongs();    
 }
 
+
+
 function addArtist() {
     // Get info to send to the server
     const artistToSend = {
@@ -36,6 +38,8 @@ function addArtist() {
         console.log('error in artist post', error); 
         alert('Error adding artist. Please try again later.')       
     });
+    $('#artist-name').val('')
+    $('#artist-born').val('')
 }
 
 function addSong() {
@@ -60,6 +64,9 @@ function addSong() {
         console.log('error in song post', error); 
         alert('Error adding song. Please try again later.')       
     });
+    $('#song-name').val(''), 
+    $('#song-length').val(''),
+    $('#song-released').val('')
 }
 
 function getArtists() { 
