@@ -88,9 +88,9 @@ app.get('/artist', (req, res) => {
 });
 
 app.post('/artist', (req, res) => {
-    let artistList = [];
-    artistList.push(req.body);
-    let queryText = `INSERT INTO "artist"("artist_name","year_born") VALUES(${artistList.name}, ${artistList.birthdate});`
+    let artistList = req.body;
+    // artistList.push(req.body);
+    let queryText = `INSERT INTO "artist"("artist_name","year_born") VALUES('${artistList.name}', '${artistList.birthdate}');`
     pool.query(queryText)
         .then(response => {
         console.log('new peep is this peep', response);
