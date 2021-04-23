@@ -115,6 +115,15 @@ app.get('/song', (req, res) => {
 });
 
 app.post('/song', (req, res) => {
-    songList.push(req.body);
-    res.sendStatus(201);
+    let songList = req.body;
+    let queryText = `INSERT INTO "song"("track","time","published") VALUES('${songList.title}', '${songList.length}', '${songList.released}');`
+    pool.query(queryText)
+        .then(response => {
+        console.log('new song is', response);
+        res.sendStatus(201);
+    })
+        .catch((error) => {
+            console.log(`Error! It broke trying to query ${queryText}`, error);
+            res.sendStatus(500);
+        });
 });
